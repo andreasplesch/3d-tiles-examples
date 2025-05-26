@@ -11,6 +11,35 @@ https://www.3dcitydb.org/3dcitydb-web-map/2.0.0/3dwebclient/index.html?la=40.037
 
 https://sandcastle.cesium.com/#c=bVFNT+QwDP0rUcWhSOCAuEEZoWW5rcQBllMlyKSeaXbTpHKcmR0Q/52kH7DA5JL42e/5OdbeBRaRrLgUddEy9+FcSuUaQhV6i0G3sDbcxiUYL8+aYzYJPMZ/qstZ2Zk1KTbeSR+5j/y4It89nsKJvM+FyGF+3K7eER4f8Cd4VxcXtdODi43BLVIy4nArrjGY2MHDgJV1oYf42jtWxiHVxWHiMe3ES+2EGAUm3aSgtsrwrDFeZz+n/pAt/iZbpqmziJgaQ9DoEHoynWGzwQCqacpJc0+hVh2SgpXd3fsfPrrGuPVd3yLhTILlJzhrvAqtWLeiRCJPhx/uvUWwfl0+3eSEsF5l4jzSuTh4GRivT4PK+GUzp/E6dug4BXpYRq4pjooq8M7iIrfI58p0vadh2yWAZEwrVJyWuIz6b3KrQxjHFKKS/1OrxmyEaS73bEFoq0JImVW09s48Y10sKpnqv1GniW43SFbtcll7uvg1ggBQyRTuZ7L3dqnoi/Ib
 
+The code parameter #c is base64 encoded, zip compressed code and html:
+
+```js
+window.decodeBase64Data = function (base64String, pako) {
+    // data stored in the hash as:
+    // Base64 encoded, raw DEFLATE compressed JSON array where index 0 is code, index 1 is html
+    // restore padding
+    while (base64String.length % 4 !== 0) {
+      base64String += "=";
+    }
+    let jsonString = pako.inflate(atob(base64String), {
+      raw: true,
+      to: "string",
+    });
+    // we save a few bytes by omitting the leading [" and trailing "] since they are always the same
+    jsonString = `["${jsonString}"]`;
+    const json = JSON.parse(jsonString);
+    // index 0 is code, index 1 is html
+    const code = json[0];
+    const html = json[1];
+    const baseHref = json[2];
+    return {
+      code: code,
+      html: html,
+      baseHref: baseHref,
+    };
+  };
+```
+
 relative links to all top-level folders within each migration/output_from* directory:
 
 ---
