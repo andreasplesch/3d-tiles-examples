@@ -46,5 +46,3 @@ relative links to all top-level folders within each migration/output_from* direc
 - [MultipleContents](migration/output_from_1.1_explicit/MultipleContents)
 
 ---
-
-If you need links for deeper subfolders as well, or want this for a different directory, just let me know!
