@@ -9,7 +9,19 @@
 </head>
 
 <body>
-    <div id="cesiumContainer"></div>
+    <body>
+    <div id="leftSide" style="width: 49.9%;">
+        <div id="cesiumContainer"></div>
+    <div id="rightSide" style="
+    width: 49.9%;
+    top: 0;
+    right: 0;
+    position: absolute;">
+        <pre id="logger" style="
+    padding-left:  1em;
+    border-left:  1em;
+    border-left-style: outset;"></pre>
+    </div>    
     <script type="module">
         // Your access token can be found at: https://ion.cesium.com/tokens.
         // Replace `your_access_token` with your Cesium ion access token.
@@ -27,6 +39,8 @@
             const tileset = await Cesium.Cesium3DTileset.fromUrl(url);
             viewer.scene.primitives.add(tileset);
             viewer.scene.camera.flyToBoundingSphere(tileset.boundingSphere);
+            const tilesetjson = await fetch(url).then((response) => response.text());//.then((text) => text );
+            document.querySelector('#logger').textContent = tilesetjson;
         } catch (error) {
             console.log(`Error loading tileset: ${error}`);
         }
@@ -88,7 +102,6 @@
             return result;
         }
     </script>
-    </div>
-</body>
 
+</body>
 </html>
