@@ -1,7 +1,4 @@
-- [./Voxel/VoxelCylinder3DTiles/tileset.json](./Voxel/VoxelCylinder3DTiles/tileset.json)
 - [./Voxel/VoxelMultiAttribute3DTiles/tileset.json](./Voxel/VoxelMultiAttribute3DTiles/tileset.json)
-- [./Voxel/VoxelBox3DTiles/tileset.json](./Voxel/VoxelBox3DTiles/tileset.json)
-- [./Voxel/VoxelEllipsoid3DTiles/tileset.json](./Voxel/VoxelEllipsoid3DTiles/tileset.json)
 - [./GltfContentWithRepeatedCopyrights/glTF/tileset.json](./GltfContentWithRepeatedCopyrights/glTF/tileset.json)
 - [./Tilesets/TilesetPoints/tileset.json](./Tilesets/TilesetPoints/tileset.json)
 - [./Tilesets/TilesetUniform/tileset.json](./Tilesets/TilesetUniform/tileset.json)
