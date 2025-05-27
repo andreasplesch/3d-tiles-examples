@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Include the CesiumJS JavaScript and CSS files -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.129/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.129/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="cesiumContainer"></div>
+    <script type="module">
+        // Your access token can be found at: https://ion.cesium.com/tokens.
+        // Replace `your_access_token` with your Cesium ion access token.
+
+        // Cesium.Ion.defaultAccessToken = 'your_access_token';
+
+        const endUserOptions = queryToObject(window.location.search.substring(1));
+
+        const fallBackUrl = "https://andreasplesch.github.io/3d-tiles-examples/migration/output_from_1.0/Tilesets/TilesetOfTilesets/tileset.json";
+
+        const url = endUserOptions?.url || fallBackUrl;
+
+        const viewer = new Cesium.Viewer("cesiumContainer");
+        try {
+            const tileset = await Cesium.Cesium3DTileset.fromUrl(url);
+            viewer.scene.primitives.add(tileset);
+            viewer.scene.camera.flyToBoundingSphere(tileset.boundingSphere);
+        } catch (error) {
+            console.log(`Error loading tileset: ${error}`);
+        }
+
+        /**
+     * Parses a query string into an object, where the keys and values of the object are the
+     * name/value pairs from the query string, decoded. If a name appears multiple times,
+     * the value in the object will be an array of values.
+     * @function queryToObject
+     *
+     * @param {string} queryString The query string.
+     * @returns {object} An object containing the parameters parsed from the query string.
+     *
+     *
+     * @example
+     * const obj = Cesium.queryToObject('key1=some%20value&key2=a%2Fb&key3=x&key3=y');
+     * // obj will be:
+     * // {
+     * //   key1 : 'some value',
+     * //   key2 : 'a/b',
+     * //   key3 : ['x', 'y']
+     * // }
+     *
+     * @see objectToQuery
+     */
+        function queryToObject(queryString) {
+            //>>includeStart('debug', pragmas.debug);
+            //   if (!defined(queryString)) {
+            //     throw new DeveloperError("queryString is required.");
+            //   }
+            //   //>>includeEnd('debug');
+
+            const result = {};
+            if (queryString === "") {
+                return result;
+            }
+            const parts = queryString.replace(/\+/g, "%20").split(/[&;]/);
+            for (let i = 0, len = parts.length; i < len; ++i) {
+                const subparts = parts[i].split("=");
+
+                const name = decodeURIComponent(subparts[0]);
+                let value = subparts[1];
+                if (value) {
+                    value = decodeURIComponent(value);
+                } else {
+                    value = "";
+                }
+
+                const resultValue = result[name];
+                if (typeof resultValue === "string") {
+                    // expand the single value to an array
+                    result[name] = [resultValue, value];
+                } else if (Array.isArray(resultValue)) {
+                    resultValue.push(value);
+                } else {
+                    result[name] = value;
+                }
+            }
+            return result;
+        }
+    </script>
+    </div>
+</body>
+
+</html>
