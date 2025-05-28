@@ -12,7 +12,7 @@ viewer-url: https://andreasplesch.github.io/3d-tiles-examples/Viewer/?url=
 <ol>
 {% for file in migration_files %}
 <li>
-  <a href="{{ page.viewer-url }}{{ file.path | absolute_url }}">Viewer :eye: </a>
+  <a target='_blank' href="{{ page.viewer-url }}{{ file.path | absolute_url }}">Viewer :eye: </a>
   <a href="{{ file.path | relative_url }}">{{ file.path | remove_first: 'migration/' }}</a>
 </li>
 {% endfor %}
