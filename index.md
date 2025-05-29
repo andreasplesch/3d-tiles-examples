@@ -8,7 +8,8 @@ viewer-url: https://andreasplesch.github.io/3d-tiles-examples/Viewer/?url=
 # Migration Folder File Listing
 
 {% assign migration_files = site.static_files | where_exp: "file", "file.path contains 'migration/output_from'" | where_exp: "file", "file.extname contains 'json' " %}
-{% assign json11_files = migration_files | where_exp: "file", "file.path contains 'tileset_1.1.json'" %}
+{% assign json11e_files = migration_files | where_exp: "file", "file.path contains 'output_from_1.1'" | where_exp: "file", "file.path contains 'tileset.json'" %}
+{% assign json11_files = migration_files | where_exp: "file", "file.path contains 'tileset_1.1.json'" | concat: json11e_files %}
 {% assign json_files = migration_files | where_exp: "file", "file.path contains 'output_from_1.0/'" | concat: json11_files %}
 
 <ol>
