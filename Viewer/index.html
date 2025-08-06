@@ -52,10 +52,11 @@
               ),
         });
         viewer.extend(Cesium.viewerCesiumInspectorMixin);
+        viewer.extend(Cesium.viewerCesium3DTilesInspectorMixin);
         
         const scene = viewer.scene;
 
-        let tileInspector = new Cesium.Cesium3DTilesInspector("cesiumContainer", scene);
+        //let tileInspector = new Cesium.Cesium3DTilesInspector("cesiumContainer", scene);
         
         const camera = scene.camera;
         const maxDistanceFromCore = 100000; //100 km
