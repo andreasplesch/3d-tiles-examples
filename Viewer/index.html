@@ -23,7 +23,7 @@
     </div>
     
     <div id="leftSide" ondblclick='resetView()' style="width: 49.9%;">
-        <div id="cesiumContainer"></div>
+        <div id="cesiumContainer style='width: 100; aspect-ratio: 0.3' "></div>
         <div id="threeContainer" style="width: 100%;"></div>
     </div>
     
@@ -41,7 +41,7 @@
 
         const threeDTilesRendererUrl = 'https://nasa-ammos.github.io/3DTilesRendererJS/example/bundle/index.html#' + url;
         const threeContainer = document.querySelector('#threeContainer');
-        threeContainer.innerHTML = `<iframe src=${threeDTilesRendererUrl}></iframe>`;
+        threeContainer.innerHTML = `<iframe style='width: 100%; aspect-ratio: 0.3;' src=${threeDTilesRendererUrl}></iframe>`;
 
         const viewer = new Cesium.Viewer("cesiumContainer");
         const scene = viewer.scene;
