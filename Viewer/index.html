@@ -24,7 +24,7 @@
     </div>
     
     <div id="leftSide" ondblclick='resetView()' style="width: 49.9%;">
-        <div id="cesiumContainer" style="width: 100%; aspect-ratio: 4 / 3; max-height: 40%;"></div>
+        <div id="cesiumContainer" style="width: 100%; aspect-ratio: 16 / 9; max-height: 40%;"></div>
         <div id="threeContainer" style="width: 100%;"></div>
     </div>
     
@@ -42,10 +42,21 @@
 
         const threeDTilesRendererUrl = 'https://nasa-ammos.github.io/3DTilesRendererJS/example/bundle/index.html#' + url;
         const threeContainer = document.querySelector('#threeContainer');
-        threeContainer.innerHTML = `<iframe style='width: 100%; aspect-ratio: 4 / 3; max-height: 40%;' src=${threeDTilesRendererUrl}></iframe>`;
+        threeContainer.innerHTML = `<iframe style='width: 100%; aspect-ratio: 16 / 9; max-height: 40%;' src=${threeDTilesRendererUrl}></iframe>`;
 
-        const viewer = new Cesium.Viewer("cesiumContainer");
+        const viewer = new Cesium.Viewer("cesiumContainer", {
+              baseLayer: Cesium.ImageryLayer.fromProviderAsync(
+                Cesium.ArcGisMapServerImageryProvider.fromBasemapType(
+                  Cesium.ArcGisBaseMapType.SATELLITE
+                )
+              ),
+        });
+        viewer.extend(Cesium.viewerCesiumInspectorMixin);
+        
         const scene = viewer.scene;
+
+        let tileInspector = new Cesium.Cesium3DTilesInspector("cesiumContainer", scene);
+        
         const camera = scene.camera;
         const maxDistanceFromCore = 100000; //100 km
         
